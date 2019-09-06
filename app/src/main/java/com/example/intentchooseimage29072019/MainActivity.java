@@ -2,8 +2,10 @@ package com.example.intentchooseimage29072019;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView imgRandom,imgChoose;
     ArrayList<String> mangtenhinh ;
+    Integer valueHinhGoc = 0;
+    int Request_Code_Image = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +32,14 @@ public class MainActivity extends AppCompatActivity {
         //Lay ten hinh tu trong string resource
         mangtenhinh = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.array_Animal)));
         Collections.shuffle(mangtenhinh);
-        int imgHinh = getResources().getIdentifier(mangtenhinh.get(0),"drawable",getPackageName());
-        imgRandom.setImageResource(imgHinh);
+        valueHinhGoc = getResources().getIdentifier(mangtenhinh.get(0),"drawable",getPackageName());
+        imgRandom.setImageResource(valueHinhGoc);
+        imgChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,Main2Activity.class);
+                startActivityForResult(intent,Request_Code_Image);
+            }
+        });
     }
 }
