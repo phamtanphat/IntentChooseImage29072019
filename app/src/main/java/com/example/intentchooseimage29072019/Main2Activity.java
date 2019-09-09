@@ -2,6 +2,7 @@ package com.example.intentchooseimage29072019;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,7 +37,7 @@ public class Main2Activity extends AppCompatActivity {
                 if (index >= mangAlbum.size()){
                     break;
                 }else{
-                    int valueHinhChon = getResources().getIdentifier(mangAlbum.get(index),"drawable",getPackageName());
+                    final int valueHinhChon = getResources().getIdentifier(mangAlbum.get(index),"drawable",getPackageName());
                     TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(350,350);
                     layoutParams.setMargins(10 ,0,0,0);
                     imageView.setLayoutParams(layoutParams);
@@ -44,6 +45,9 @@ public class Main2Activity extends AppCompatActivity {
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            Intent intent = new Intent();
+                            intent.putExtra("valueHinh",valueHinhChon);
+                            setResult(RESULT_OK,intent);
                             finish();
                         }
                     });
