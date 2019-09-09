@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -32,9 +33,7 @@ public class MainActivity extends AppCompatActivity {
         //Task 1 : xu ly lay hinh trong drawable
         //Lay ten hinh tu trong string resource
         mangtenhinh = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.array_Animal)));
-        Collections.shuffle(mangtenhinh);
-        valueHinhGoc = getResources().getIdentifier(mangtenhinh.get(0),"drawable",getPackageName());
-        imgRandom.setImageResource(valueHinhGoc);
+        randomImage();
         imgChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,13 +42,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == Request_Code_Image && resultCode == RESULT_OK && data != null){
             int valueHinhchon = data.getIntExtra("valueHinh" , Integer.MIN_VALUE);
             imgChoose.setImageResource(valueHinhchon);
+            if (valueHinhchon == valueHinhGoc){
+                Toast.makeText(this, "Chinh xac", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "Sai roi", Toast.LENGTH_SHORT).show();
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+    private void randomImage(){
+        Collections.shuffle(mangtenhinh);
+        valueHinhGoc = getResources().getIdentifier(mangtenhinh.get(0),"drawable",getPackageName());
+        imgRandom.setImageResource(valueHinhGoc);
     }
 }
