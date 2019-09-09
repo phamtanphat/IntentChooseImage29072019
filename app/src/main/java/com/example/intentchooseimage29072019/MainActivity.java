@@ -1,5 +1,6 @@
 package com.example.intentchooseimage29072019;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -37,9 +38,18 @@ public class MainActivity extends AppCompatActivity {
         imgChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Main2Activity.class);
-                startActivityForResult(intent,Request_Code_Image);
+            Intent intent = new Intent(MainActivity.this,Main2Activity.class);
+            startActivityForResult(intent,Request_Code_Image);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == Request_Code_Image && resultCode == RESULT_OK && data != null){
+            int valueHinhchon = data.getIntExtra("valueHinh" , Integer.MIN_VALUE);
+            imgChoose.setImageResource(valueHinhchon);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
