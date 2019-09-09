@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -49,9 +50,17 @@ public class MainActivity extends AppCompatActivity {
             imgChoose.setImageResource(valueHinhchon);
             if (valueHinhchon == valueHinhGoc){
                 Toast.makeText(this, "Chinh xac", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        randomImage();
+                    }
+                },1000);
             }else{
                 Toast.makeText(this, "Sai roi", Toast.LENGTH_SHORT).show();
             }
+        }else if(resultCode == RESULT_CANCELED){
+            Toast.makeText(this, "Nguoi dung chua chon con vat", Toast.LENGTH_SHORT).show();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
